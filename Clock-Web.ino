@@ -6,8 +6,8 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 
-#define SSID         "christina"
-#define PASSWORD     "christina123"
+#define SSID         "---"
+#define PASSWORD     "---"
 #define ENDPOINTHOUR "http://worldtimeapi.org/api/timezone/America/Sao_Paulo"
 
 #define SCREEN_WIDTH 128
