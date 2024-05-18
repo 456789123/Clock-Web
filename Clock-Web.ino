@@ -73,8 +73,8 @@ void tela_analogica( const int segundos, const int minutos, const int horas, con
     // Calcula as coordenadas do ponteiro das horas
   int centro_horas_x = (SCREEN_WIDTH - 80) / 2 + 40;
   int centro_horas_y = 32;
-  int ponteiro_horas_x = centro_horas_x + int(15 * cos(horas_angulo));
-  int ponteiro_horas_y = centro_horas_y + int(15 * sin(horas_angulo));
+  int ponteiro_horas_x = centro_horas_x + int(20 * cos(horas_angulo));
+  int ponteiro_horas_y = centro_horas_y + int(20 * sin(horas_angulo));
 
   // Desenha o ponteiro dos segundos
   display.drawLine(centro_segundos_x, centro_segundos_y, ponteiro_segundos_x, ponteiro_segundos_y, SSD1306_WHITE);
