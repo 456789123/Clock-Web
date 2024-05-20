@@ -14,9 +14,19 @@
 #define SCREEN_HEIGHT 64
 #define OLED_RESET   -1
 #define SCREEN_ADDRESS 0x3C
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 #define UPDATE_INTERVAL 1000
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+void show_display( const String mensage ) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 10);
+  display.println(mensage);
+  display.display();
+}
 
 void tela_analogica( const int segundos, const int minutos, const int horas, const String horas_minutos ) {
 
@@ -162,13 +172,17 @@ void verifica_conexao() {
   
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("Reconectando ao Wi-Fi...");
+    show_display("Reconectando ao Wi-Fi...");
     WiFi.begin(SSID, PASSWORD);
     while (WiFi.status() != WL_CONNECTED) {
       delay(500);
+
       Serial.print(".");
+
     }
     Serial.println();
     Serial.println("Reconectado ao Wi-Fi");
+    show_display("Reconectando ao Wi-Fi");
   }
 }
 
@@ -176,8 +190,14 @@ void setup() {
   Serial.begin(115200);
   delay(4000);
 
+  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println("Falha na inicialização do SSD1306");
+    for (;;);
+  }
+
   WiFi.begin(SSID, PASSWORD);
   Serial.print("Conectando-se ao Wi-Fi");
+  show_display("Conectando-se ao Wi-Fi");
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -186,12 +206,7 @@ void setup() {
 
   Serial.println();
   Serial.println("Conectado ao Wi-Fi");
-
-  if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-    Serial.println("Falha na inicialização do SSD1306");
-    for (;;);
-  }
-
+  show_display("Conectado ao Wi-Fi");
 
   display.clearDisplay();
   display.setTextSize(2);
