@@ -169,20 +169,27 @@ void get_horario( const bool trocar ) {
 }
 
 void verifica_conexao() {
+
+  String mensage_conect = "";
   
   if (WiFi.status() != WL_CONNECTED) {
-    Serial.println("Reconectando ao Wi-Fi...");
-    show_display("Reconectando ao Wi-Fi...");
+    mensage_conect = "Reconectando ao Wi-Fi.";
     WiFi.begin(SSID, PASSWORD);
     while (WiFi.status() != WL_CONNECTED) {
       delay(500);
 
-      Serial.print(".");
+      mensage_conect.concat(".");
+      Serial.println(mensage_conect);
+      show_display(mensage_conect);
 
     }
+    mensage_conect = "Conectado ao Wi-Fi   ";
+    mensage_conect.concat(SSID);
+
     Serial.println();
-    Serial.println("Reconectado ao Wi-Fi");
-    show_display("Reconectando ao Wi-Fi");
+    Serial.println(mensage_conect);
+    show_display(mensage_conect);
+    delay(2000);
   }
 }
 
@@ -196,12 +203,13 @@ void setup() {
   }
 
   WiFi.begin(SSID, PASSWORD);
-  Serial.print("Conectando-se ao Wi-Fi");
-  show_display("Conectando-se ao Wi-Fi");
+  String mensage_conect = "Conectando-se ao Wi-Fi";
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
+      mensage_conect.concat(".");
+      Serial.println(mensage_conect);
+      show_display(mensage_conect);
   }
 
   Serial.println();
